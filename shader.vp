@@ -1,0 +1,19 @@
+const int NUM_LIGHTS = 1;
+
+uniform vec3 cameraPosition;
+uniform vec3 lightPosition[NUM_LIGHTS];
+
+varying vec3 fragmentNormal;
+varying vec3 cameraVector;
+varying vec3 lightVector[NUM_LIGHTS];
+
+void main() {
+	fragmentNormal = gl_Normal;
+	cameraVector = cameraPosition - gl_Vertex.xyz;
+
+	for (int i = 0; i < NUM_LIGHTS; ++i) {
+		lightVector[i] = lightPosition[i] - gl_Vertex.xyz;
+	}
+
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+}
